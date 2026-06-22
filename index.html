@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Library — CodeZyng</title>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="app">
+<!-- SIDEBAR -->
+<aside class="sidebar" role="navigation" aria-label="Main navigation">
+  <div class="logo-wrap">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div style="font-size:22px;font-weight:700;letter-spacing:-.02em;color:var(--text);">Design Hub</div>
+      <div style="font-size:10px;color:var(--text3);background:var(--surface2);border:1px solid var(--border2);padding:2px 7px;border-radius:10px;font-weight:600">v2.4</div>
+    </div>
+  </div>
+
+  <div class="sidebar-cats">
+    <div class="ns">
+      <span class="nl">Workspace</span>
+      <button class="ni active" onclick="pg('home')" aria-label="Dashboard Home"><i class="fas fa-home" aria-hidden="true"></i>Dashboard</button>
+      <button class="ni" onclick="pg('browse')" aria-label="Browse resources"><i class="fas fa-th" aria-hidden="true"></i>Browse All</button>
+      <button class="ni" onclick="pg('bookmarks')" aria-label="Bookmarks"><i class="fas fa-bookmark" aria-hidden="true"></i>Saved<span class="nb" id="bm-nb">9</span></button>
+    </div>
+    <div class="ns" style="margin-top:4px">
+      <span class="nl">Categories</span>
+      <div id="category-list">
+        <button class="ni" data-cat="UI Design" onclick="showCat('UI Design')"><span class="cdot" style="background:#7c6fff"></span>UI Design<span class="nb">14</span></button>
+        <button class="ni" data-cat="Animation" onclick="showCat('Animation')"><span class="cdot" style="background:#1D9E75"></span>Animation<span class="nb">10</span></button>
+        <button class="ni" data-cat="Color" onclick="showCat('Color')"><span class="cdot" style="background:#ff6b6b"></span>Color<span class="nb">4</span></button>
+        <button class="ni" data-cat="Icons" onclick="showCat('Icons')"><span class="cdot" style="background:#ffb347"></span>Icons<span class="nb">8</span></button>
+        <button class="ni" data-cat="Illustration" onclick="showCat('Illustration')"><span class="cdot" style="background:#4d9fff"></span>Illustration<span class="nb">4</span></button>
+        <button class="ni" data-cat="Typography" onclick="showCat('Typography')"><span class="cdot" style="background:#f06292"></span>Typography<span class="nb">2</span></button>
+        <button class="ni" data-cat="Design Systems" onclick="showCat('Design Systems')"><span class="cdot" style="background:#66bb6a"></span>Design Systems<span class="nb">9</span></button>
+        <button class="ni" data-cat="AI Tools" onclick="showCat('AI Tools')"><span class="cdot" style="background:#b9f900"></span>AI Tools<span class="nb">8</span></button>
+        <button class="ni" data-cat="Accessibility" onclick="showCat('Accessibility')"><span class="cdot" style="background:#26c6da"></span>Accessibility<span class="nb">7</span></button>
+      </div>
+    </div>
+  </div>
+
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <header class="topbar" role="banner">
+    <div class="breadcrumb" id="breadcrumb">
+      <span>Workspace</span>
+      <i class="fas fa-chevron-right"></i>
+      <span style="color:var(--text)" id="bc-current">Dashboard</span>
+    </div>
+    <div class="search-box" role="search">
+      <i class="fas fa-search" aria-hidden="true"></i>
+      <input type="search" placeholder="Search 66 design resources..." aria-label="Search design resources" oninput="liveSearch(this.value)" id="top-search">
+    </div>
+    <div class="topbar-actions">
+      <button class="tbtn primary" onclick="openAddModal()" aria-label="Add new resource"><i class="fas fa-plus"></i>Add resource</button>
+    </div>
+  </header>
+
+  <div class="scroll-area" id="scroll-area">
+
+    <!-- HOME -->
+    <div class="pg active" id="pg-home">
+      <div class="page-header">
+        <h1 class="page-title">Design Library</h1>
+        <p class="page-sub">Your end-of-day design resource snapshot.</p>
+      </div>
+
+      <div class="cat-pills-wrap" role="group" aria-label="Filter by category">
+        <div class="cat-pills" id="home-pills">
+          <button class="cpill active" onclick="filterHome(this,'All')">All</button>
+          <button class="cpill" onclick="filterHome(this,'UI Design')">UI Design</button>
+          <button class="cpill" onclick="filterHome(this,'Animation')">Animation</button>
+          <button class="cpill" onclick="filterHome(this,'Color')">Color</button>
+          <button class="cpill" onclick="filterHome(this,'Icons')">Icons</button>
+          <button class="cpill" onclick="filterHome(this,'Illustration')">Illustration</button>
+          <button class="cpill" onclick="filterHome(this,'Typography')">Typography</button>
+          <button class="cpill" onclick="filterHome(this,'Design Systems')">Design Systems</button>
+          <button class="cpill" onclick="filterHome(this,'AI Tools')">AI Tools</button>
+          <button class="cpill" onclick="filterHome(this,'Accessibility')">Accessibility</button>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-head"><span class="sec-title">Featured Resources</span><button class="sec-link" onclick="pg('browse')">View all</button></div>
+        <div class="g3" id="home-feat"></div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-head"><span class="sec-title">Recently Added</span><button class="sec-link" onclick="pg('browse')">View all</button></div>
+        <div class="g4" id="home-recent"></div>
+      </div>
+
+    </div>
+
+    <!-- BROWSE -->
+    <div class="pg" id="pg-browse">
+      <div class="page-header">
+        <h1 class="page-title">Browse All</h1>
+        <p class="page-sub" id="browse-sub">66 resources across 9 categories</p>
+      </div>
+      <div class="filter-bar" role="group" aria-label="Filter resources">
+        <span class="fl">Filter</span>
+        <button class="fc active" onclick="filterBrowse(this,'All')">All</button>
+        <button class="fc" onclick="filterBrowse(this,'Free')">Free</button>
+        <button class="fc" onclick="filterBrowse(this,'Freemium')">Freemium</button>
+        <button class="fc" onclick="filterBrowse(this,'UI Design')">UI Design</button>
+        <button class="fc" onclick="filterBrowse(this,'Animation')">Animation</button>
+        <button class="fc" onclick="filterBrowse(this,'Color')">Color</button>
+        <button class="fc" onclick="filterBrowse(this,'Icons')">Icons</button>
+        <button class="fc" onclick="filterBrowse(this,'AI Tools')">AI Tools</button>
+        <select class="sort-sel" aria-label="Sort" onchange="sortBrowse(this.value)">
+          <option value="pop">Most popular</option>
+          <option value="az">A to Z</option>
+          <option value="rating">Top rated</option>
+        </select>
+      </div>
+      <div class="g3" id="browse-grid"></div>
+    </div>
+
+    <!-- CATEGORY -->
+    <div class="pg" id="pg-category">
+      <button class="dbk" onclick="pg('home')"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
+      <div class="cat-header">
+        <div class="cat-icon-wrap" id="cat-icon-wrap"></div>
+        <div>
+          <h1 class="page-title" style="font-size:20px;margin-bottom:2px" id="cat-title">UI Design</h1>
+          <p class="page-sub" id="cat-count">0 resources</p>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--text2);margin-bottom:18px;max-width:560px" id="cat-desc"></p>
+      <div class="filter-bar">
+        <span class="fl">Filter</span>
+        <button class="fc active" onclick="filterCat(this,'All')">All</button>
+        <button class="fc" onclick="filterCat(this,'Free')">Free</button>
+        <button class="fc" onclick="filterCat(this,'Freemium')">Freemium</button>
+        <select class="sort-sel" aria-label="Sort category" onchange="sortCat(this.value)"><option value="rating">Top rated</option><option value="az">A to Z</option></select>
+      </div>
+      <div class="g3" id="cat-grid"></div>
+    </div>
+
+    <!-- DETAIL -->
+    <div class="pg" id="pg-detail">
+      <button class="dbk" id="det-back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+      <div class="det-card">
+        <div class="det-header">
+          <div class="det-logo" id="det-logo"></div>
+          <div style="flex:1">
+            <h1 class="det-title" id="det-name"></h1>
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap" id="det-meta-row"></div>
+          </div>
+        </div>
+        <p class="det-desc" id="det-desc"></p>
+        <div class="det-actions">
+          <a class="btn-visit" id="det-link" href="#" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i>Visit website</a>
+          <button class="btn-action" id="det-save-btn" onclick="detSave()"><i class="fas fa-bookmark"></i><span id="det-save-lbl">Save</span></button>
+          <button class="btn-action" onclick="detCopy()"><i class="fas fa-copy"></i>Copy link</button>
+        </div>
+        <div class="det-meta-grid">
+          <div class="det-meta-item"><span class="det-meta-label">Category</span><span class="det-meta-val" id="dcat"></span></div>
+          <div class="det-meta-item"><span class="det-meta-label">Pricing</span><span class="det-meta-val" id="dprice"></span></div>
+          <div class="det-meta-item"><span class="det-meta-label">Rating</span><span class="det-meta-val" style="color:var(--accent)" id="drating"></span></div>
+          <div class="det-meta-item"><span class="det-meta-label">Domain</span><span style="font-size:11px;color:var(--blue);word-break:break-all" id="durl"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOOKMARKS -->
+    <div class="pg" id="pg-bookmarks">
+      <div class="page-header">
+        <h1 class="page-title">Saved</h1>
+        <p class="page-sub" id="bm-sub">9 saved resources</p>
+      </div>
+      <div class="g3" id="bm-grid"></div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ADD RESOURCE MODAL -->
+<div class="modal-overlay hidden" id="add-modal" role="dialog" aria-modal="true" aria-labelledby="modal-heading" onclick="closeIfOverlay(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAddModal()" aria-label="Close modal"><i class="fas fa-times"></i></button>
+    <h2 class="modal-title" id="modal-heading">Add New Resource</h2>
+    <p class="modal-sub">Paste a URL and enter the resource details manually. Visible to the whole team instantly.</p>
+
+    <div class="form-group">
+      <label class="form-label" for="res-url">Website URL *</label>
+      <input class="form-input" id="res-url" type="url" placeholder="https://example.com" required>
+    </div>
+
+    <input type="hidden" id="res-logo">
+
+    <div class="form-group" id="form-name-group">
+      <label class="form-label" for="res-name">Resource Name *</label>
+      <input class="form-input" id="res-name" type="text" placeholder="e.g. Awwwards">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="res-desc">Description</label>
+      <input class="form-input" id="res-desc" type="text" placeholder="Short description of the resource">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="res-cat">Category *</label>
+      <select class="form-select" id="res-cat" onchange="handleCategoryChange()">
+        <option value="">Select a category</option>
+        <option>UI Design</option>
+        <option>Animation</option>
+        <option>Color</option>
+        <option>Icons</option>
+        <option>Illustration</option>
+        <option>Typography</option>
+        <option>Design Systems</option>
+        <option>AI Tools</option>
+        <option>Accessibility</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="form-group hidden" id="other-cat-group">
+      <label class="form-label" for="res-cat-other">New category name</label>
+      <input class="form-input" id="res-cat-other" type="text" placeholder="Enter a custom category name">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="res-price">Pricing</label>
+      <select class="form-select" id="res-price">
+        <option>Free</option>
+        <option>Freemium</option>
+        <option>Paid</option>
+      </select>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-action" onclick="closeAddModal()">Cancel</button>
+      <button class="tbtn primary" onclick="submitResource()"><i class="fas fa-plus"></i>Add resource</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
