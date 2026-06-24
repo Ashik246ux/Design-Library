@@ -3,9 +3,9 @@
    Color tokens, category metadata & resource dataset
    ============================================ */
 
-const CC={'UI Design':'#7c6fff','Animation':'#1D9E75','Color':'#ff6b6b','Icons':'#ffb347','Illustration':'#4d9fff','Typography':'#f06292','Design Systems':'#66bb6a','AI Tools':'#b9f900','Accessibility':'#26c6da'};
-const CI={'UI Design':'fas fa-palette','Animation':'fas fa-play-circle','Color':'fas fa-droplet','Icons':'fas fa-icons','Illustration':'fas fa-image','Typography':'fas fa-font','Design Systems':'fas fa-layer-group','AI Tools':'fas fa-robot','Accessibility':'fas fa-universal-access'};
-const CD={'UI Design':'Curated galleries for landing pages, SaaS, mobile and web UI design inspiration.','Animation':'Animation libraries, motion design showcases and interactive web experiences.','Color':'Color palette generators, schemes and real UI color inspiration.','Icons':'Free open-source SVG icon libraries for web and app design.','Illustration':'Free customizable illustrations for digital products and websites.','Typography':'Font libraries and typography inspiration for web design.','Design Systems':'Design systems, component libraries and UI primitives.','AI Tools':'AI-powered UI generation, prototyping and design tools.','Accessibility':'WCAG tools, contrast checkers and accessibility testing platforms.'};
+const CC={'UI Design':'#7c6fff','Animation':'#1D9E75','Color':'#ff6b6b','Icons':'#ffb347','Illustration':'#4d9fff','Typography':'#f06292','Design Systems':'#66bb6a','AI Tools':'#b9f900','Accessibility':'#26c6da','Logo Generators':'#ff9a76'};
+const CI={'UI Design':'fas fa-palette','Animation':'fas fa-play-circle','Color':'fas fa-droplet','Icons':'fas fa-icons','Illustration':'fas fa-image','Typography':'fas fa-font','Design Systems':'fas fa-layer-group','AI Tools':'fas fa-robot','Accessibility':'fas fa-universal-access','Logo Generators':'fas fa-heading'};
+const CD={'UI Design':'Curated galleries for landing pages, SaaS, mobile and web UI design inspiration.','Animation':'Animation libraries, motion design showcases and interactive web experiences.','Color':'Color palette generators, schemes and real UI color inspiration.','Icons':'Free open-source SVG icon libraries for web and app design.','Illustration':'Free customizable illustrations for digital products and websites.','Typography':'Font libraries and typography inspiration for web design.','Design Systems':'Design systems, component libraries and UI primitives.','AI Tools':'AI-powered UI generation, prototyping and design tools.','Accessibility':'WCAG tools, contrast checkers and accessibility testing platforms.','Logo Generators':'AI-powered logo creation tools and generators for branding.'};
 
 /* Team roster: who's on the design team and their avatar color.
    "added" is recalculated at runtime from DATA, this is just identity + color. */
@@ -83,5 +83,10 @@ const DATA=[
 {id:63,name:'WebAIM Contrast',url:'https://webaim.org/resources/contrastchecker/',desc:'Check color contrast ratios against WCAG standards.',cat:'Accessibility',price:'Free',rating:4.7,addedBy:'u3'},
 {id:64,name:'Stark Plugin',url:'https://www.figma.com/community/plugin/733159460536249875',desc:'Accessibility and contrast checking plugin for Figma.',cat:'Accessibility',price:'Freemium',rating:4.7,addedBy:'u1'},
 {id:65,name:'Coolors Contrast',url:'https://coolors.co/contrast-checker/112a46-acc8e5',desc:'Validate accessible color combinations.',cat:'Accessibility',price:'Free',rating:4.6,addedBy:'u4'},
-{id:66,name:'WCAG Guidelines',url:'https://www.w3.org/WAI/standards-guidelines/wcag/',desc:'W3C international standards for accessible web design.',cat:'Accessibility',price:'Free',rating:4.8,addedBy:'u2'}
+{id:66,name:'WCAG Guidelines',url:'https://www.w3.org/WAI/standards-guidelines/wcag/',desc:'W3C international standards for accessible web design.',cat:'Accessibility',price:'Free',rating:4.8,addedBy:'u2'},
+{id:67,name:'Looka',url:'https://www.looka.com',desc:'AI logo design generator that creates custom logos in seconds.',cat:'Logo Generators',price:'Freemium',rating:4.8,addedBy:'u1'},
+{id:68,name:'Brandmark',url:'https://brandmark.io',desc:'AI-powered branding platform for logo design and brand identity.',cat:'Logo Generators',price:'Freemium',rating:4.7,addedBy:'u2'},
+{id:69,name:'Wix Logo Maker',url:'https://www.wix.com/en-US/logo/maker',desc:'Free AI logo generator with thousands of customizable templates.',cat:'Logo Generators',price:'Free',rating:4.6,addedBy:'u3'},
+{id:70,name:'Namecheap Logo Maker',url:'https://www.namecheap.com/logo-maker/',desc:'Simple and affordable logo design tool powered by AI.',cat:'Logo Generators',price:'Freemium',rating:4.5,addedBy:'u4'},
+{id:71,name:'Renderforest',url:'https://www.renderforest.com/logo-maker',desc:'Free online logo maker with templates and AI design assistance.',cat:'Logo Generators',price:'Free',rating:4.6,addedBy:'u5'}
 ];
