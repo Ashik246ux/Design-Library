@@ -16,7 +16,7 @@ let currentDetail=null;
 let lastPage='home';
 const BCMAP={home:'Dashboard',browse:'Browse All',bookmarks:'Saved',category:'Categories',detail:'Resource Detail',team:'Team'};
 
-const CATEGORIES=['UI Design','Animation','Color','Icons','Illustration','Typography','Design Systems','AI Tools','Accessibility'];
+const CATEGORIES=['UI Design','Animation','Color','Icons','Illustration','Typography','Design Systems','AI Tools','Logo Generators','Accessibility'];
 const STORAGE_KEY='design-library-state';
 
 const CURRENT_USER=TEAM.find(t=>t.isCurrentUser)||TEAM[0];
