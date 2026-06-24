@@ -47,7 +47,23 @@ function generateCategoryColor(name){
     hash = char.charCodeAt(0) + ((hash << 5) - hash);
   }
   const hue = ((hash % 360) + 360) % 360;
-  return `hsl(${hue},70%,58%)`;
+  const saturation=70;
+  const lightness=58;
+  const c = (1 - Math.abs(2 * lightness / 100 - 1)) * (saturation / 100);
+  const x = c * (1 - Math.abs((hue / 60) % 2 - 1));
+  const m = lightness / 100 - c / 2;
+  let [r,g,b] = [0,0,0];
+  if(hue < 60){[r,g,b]=[c,x,0];}
+  else if(hue < 120){[r,g,b]=[x,c,0];}
+  else if(hue < 180){[r,g,b]=[0,c,x];}
+  else if(hue < 240){[r,g,b]=[0,x,c];}
+  else if(hue < 300){[r,g,b]=[x,0,c];}
+  else {[r,g,b]=[c,0,x];}
+  const toHex = v => {
+    const hex=Math.round((v+m)*255).toString(16).padStart(2,'0');
+    return hex;
+  };
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 
 function getCategoryColor(cat){
@@ -76,6 +92,9 @@ function loadState(){
       CATEGORIES.length=0;
       CATEGORIES.push(...parsed.CATEGORIES);
     }
+    if(parsed && Array.isArray(parsed.savedIds)){
+      savedIds = new Set(parsed.savedIds.filter(id=>typeof id==='number'));
+    }
   }catch(e){console.warn('Failed to load saved library state',e);}
 }
 
@@ -92,7 +111,7 @@ function loadSavedIds(){
 
 function saveState(){
   try{
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({DATA,CATEGORIES}));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({DATA,CATEGORIES,savedIds:[...savedIds]}));
     localStorage.setItem(SAVED_IDS_KEY, JSON.stringify([...savedIds]));
   }catch(e){console.warn('Failed to persist library state',e);}
 }
@@ -142,17 +161,22 @@ function getClearbitLogo(url){
 function card(r){
 const saved=savedIds.has(r.id);
 const c=getCategoryColor(r.cat);
-const fi=r.logo||fav(r.url);
-return`<div class="rc" onclick="showDetail(${r.id})" tabindex="0" role="article" aria-label="${r.name}, ${r.cat}, ${r.price}" onkeydown="if(event.key==='Enter')showDetail(${r.id})">
+const fi=fav(r.url);
+return`<div class="rc" tabindex="0" role="article" aria-label="${r.name}, ${r.cat}, ${r.price}">
 <div class="rci" style="background:${c}10">
-<img src="${fi}" width="36" height="36" class="fav-img" alt="${r.name} logo" loading="lazy" onerror="this.parentElement.innerHTML='<span style=width:36px;height:36px;background:${c};border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#000'>${r.name.charAt(0)}</span>'">
+<img src="${fi}" width="52" height="52" class="fav-img" alt="${r.name} logo" loading="lazy" onerror="this.parentElement.innerHTML='<span style=width:52px;height:52px;background:${c};border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#000'>${r.name.charAt(0)}</span>'"> 
 </div>
 <button class="cbm${saved?' saved':''}" onclick="event.stopPropagation();toggleSave(${r.id},this)" aria-label="${saved?'Remove':'Save'} ${r.name}"><i class="fas fa-bookmark"></i></button>
+<button class="cbm del" onclick="event.stopPropagation();removeResource(${r.id})" aria-label="Delete ${r.name}"><i class="fas fa-trash"></i></button>
 <div class="rcn">${r.name}</div>
 <div class="rcd">${r.desc}</div>
 <div class="rc-meta">
 <span class="ctag" style="background:${c}18;color:${c};border:1px solid ${c}35;font-size:10px;padding:2px 7px;border-radius:10px;font-weight:500">${r.cat}</span>
 <span class="${priceCls(r.price)}">${r.price}</span>
+</div>
+<div class="rc-actions">
+<a class="rc-btn rc-link" href="${r.url}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i>Visit Website</a>
+<button class="rc-btn" onclick="event.stopPropagation();showDetail(${r.id})" aria-label="View details for ${r.name}"><i class="fas fa-info-circle"></i>View Details</button>
 </div>
 </div>`;
 }
@@ -514,6 +538,15 @@ function submitResource(){
   const name=document.getElementById('res-name').value.trim();
   let cat=document.getElementById('res-cat').value;
   if(!url||!name||!cat){showToast('URL, name and category are required');return;}
+  function normalizeUrl(value){
+    try{const u=new URL(value);return u.origin + u.pathname.replace(/\/\/+$/, '');}catch(e){return value.toLowerCase().replace(/\/$/, '');}
+  }
+  const normalizedUrl=normalizeUrl(url);
+  const duplicate=DATA.find(r=>normalizeUrl(r.url)===normalizedUrl);
+  if(duplicate && !editResourceId){
+    showToast('Resource already exists in the library');
+    return;
+  }
   if(cat==='Other'){
     const custom=document.getElementById('res-cat-other').value.trim();
     if(!custom){showToast('Enter a custom category name');return;}

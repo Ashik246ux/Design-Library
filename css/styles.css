@@ -106,7 +106,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Inter'
 .rc:hover{border-color:var(--border2);background:var(--surface2)}
 .rc:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .rci{width:100%;height:72px;border-radius:var(--r);border:1px solid var(--border);margin-bottom:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--surface2)}
-.fav-img{width:36px;height:36px;border-radius:7px;object-fit:contain}
+.fav-img{width:52px;height:52px;border-radius:8px;object-fit:contain;image-rendering:crisp-edges}
 .rcn{font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px}
 .rcd{font-size:11px;color:var(--text2);line-height:1.4;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .rc-meta{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
@@ -116,9 +116,18 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Inter'
 .price-paid{font-size:10px;padding:2px 7px;border-radius:10px;background:#ff8c4215;color:var(--orange);border:1px solid #ff8c4230;font-weight:500}
 .cbm{position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:var(--r);background:var(--surface3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text3);font-size:12px;opacity:0;transition:all .12s}
 .rc:hover .cbm,.cbm.saved{opacity:1}
+.cbm.del{right:40px;}
 .cbm.saved{color:var(--accent);border-color:var(--accent);background:var(--accent-bg)}
 .cbm:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
-
+.rc-actions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.rc-btn{flex:1;min-width:0;font-size:10px;padding:6px 8px;border-radius:var(--r);border:1px solid var(--border2);background:var(--surface2);color:var(--text2);cursor:pointer;transition:all .12s;display:flex;align-items:center;justify-content:center;gap:4px;white-space:nowrap;font-weight:500}
+.rc-btn:hover{background:var(--accent);color:#000;border-color:var(--accent);transform:translateY(-1px)}
+.rc-btn:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.rc-link{text-decoration:none;color:var(--text2)}
+.rc-link:hover{color:var(--text)}
+/* Ensure action buttons (including anchor buttons) use readable text on hover */
+.rc-btn.rc-link:hover{color:#000}
+.rc-btn.rc-link:hover i{color:inherit}
 /* TRENDING CARD */
 .tc{background:var(--surface);border:1px solid var(--border2);border-radius:var(--rl);padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:border-color .12s,background .12s}
 .tc:hover{border-color:var(--border2);background:var(--surface2)}
