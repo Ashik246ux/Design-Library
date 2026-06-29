@@ -89,4 +89,5 @@ const DATA=[
 {id:69,name:'Wix Logo Maker',url:'https://www.wix.com/en-US/logo/maker',desc:'Free AI logo generator with thousands of customizable templates.',cat:'Logo Generators',price:'Free',rating:4.6,addedBy:'u3'},
 {id:70,name:'Namecheap Logo Maker',url:'https://www.namecheap.com/logo-maker/',desc:'Simple and affordable logo design tool powered by AI.',cat:'Logo Generators',price:'Freemium',rating:4.5,addedBy:'u4'},
 {id:71,name:'Renderforest',url:'https://www.renderforest.com/logo-maker',desc:'Free online logo maker with templates and AI design assistance.',cat:'Logo Generators',price:'Free',rating:4.6,addedBy:'u5'}
+
 ];
